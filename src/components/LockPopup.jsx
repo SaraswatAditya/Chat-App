@@ -42,7 +42,41 @@ const LockPopup = ({ onUnlock }) => {
           zIndex: 1301, // Ensure it is above everything else
         }}
       >
-        <Typography variant="h6">App is Locked</Typography>
+        <Typography variant="h6" className="p-4">App is Locked</Typography>
+        <Stack direction="column" spacing={1}>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            {[1, 2, 3].map((num) => (
+              <Button
+                key={num}
+              >
+                {num}
+              </Button>
+            ))}
+          </Stack>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            {[4, 5, 6].map((num) => (
+              <Button
+                key={num}
+              >
+                {num}
+              </Button>
+            ))}
+          </Stack>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            {[7, 8, 9].map((num) => (
+              <Button
+                key={num}
+              >
+                {num}
+              </Button>
+            ))}
+          </Stack>
+          <Stack direction="row" spacing={1} justifyContent="center">
+            <Button >*</Button>
+            <Button >0</Button>
+            <Button>#</Button>
+          </Stack>
+        </Stack>
         <Stack direction="row" spacing={1} mt={2} justifyContent="center">
           <Button onClick={handleUnlock}>Unlock</Button>
           <Button onClick={handleLock}>Kept Lock</Button>
