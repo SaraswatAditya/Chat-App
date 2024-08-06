@@ -1,3 +1,4 @@
+import React, { useState } from "react";
 import { useTheme } from "@emotion/react";
 import {
   Box,
@@ -9,14 +10,13 @@ import {
   Fade,
   MenuItem,
 } from "@mui/material";
-import { Gear } from "phosphor-react";
-import React, { useState } from "react";
-import { Nav_Buttons, Profile_Menu } from "../../data";
+import { Gear, Lock, LockOpen } from "phosphor-react";
 import { faker } from "@faker-js/faker";
 import useSettings from "../../hooks/useSettings";
 import AntSwitch from "../../components/AntSwitch";
 import logo from "../../assets/Images/logo.ico";
 import { useNavigate } from "react-router-dom";
+import { Nav_Buttons, Profile_Menu } from "../../data";
 
 const getPath = (index) => {
   switch (index) {
@@ -67,6 +67,11 @@ const SideBar = () => {
   };
 
   const { onToggleMode } = useSettings();
+
+  const handleLock = () => {
+    localStorage.setItem("appLocked", "true");
+    window.location.reload();
+  };
 
   return (
     <Box
@@ -219,6 +224,9 @@ const SideBar = () => {
               </Stack>
             </Box>
           </Menu>
+          <IconButton onClick={handleLock}>
+            <Lock />
+          </IconButton>
         </Stack>
       </Stack>
     </Box>

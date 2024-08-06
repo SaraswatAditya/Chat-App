@@ -5,7 +5,8 @@ const initialState = {
   sideBar: {
     open: false,
     type: "CONTACT", // can be CONTACT, STARRED, SHARED
-  }
+  },
+  isLocked: localStorage.getItem("isAppLocked") === "true",
 };
 
 const slice = createSlice({
@@ -50,8 +51,30 @@ const slice = createSlice({
       state.chat_type = "individual";
       state.room_id = action.payload.room_id;
     },
+    lockApp(state) {
+      state.isLocked = true;
+      localStorage.setItem("isAppLocked", "true");
+    },
+    unlockApp(state) {
+      state.isLocked = false;
+      localStorage.removeItem("isAppLocked");
+    },
   },
 });
+
+export const {
+  toggleSideBar,
+  updateSideBarType,
+  updateTab,
+  openSnackBar,
+  updateUsers,
+  updateAllUsers,
+  updateFriends,
+  updateFriendRequests,
+  selectConversation,
+  lockApp,
+  unlockApp,
+} = slice.actions;
 
 // Reducer
 export default slice.reducer;
@@ -93,11 +116,16 @@ export function UpdateTab(tab) {
   };
 }
 
-
-
 export const SelectConversation = ({ room_id }) => {
   return async (dispatch, getState) => {
     dispatch(slice.actions.selectConversation({ room_id }));
   };
 };
 
+export const lockAppAction = () => async (dispatch) => {
+  dispatch(lockApp());
+};
+
+export const unlockAppAction = () => async (dispatch) => {
+  dispatch(unlockApp());
+};
