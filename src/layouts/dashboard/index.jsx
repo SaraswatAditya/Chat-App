@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Stack, Box, Typography } from "@mui/material";
+import { Stack, Box, Typography, Divider } from "@mui/material";
 import { Navigate, Outlet } from "react-router-dom";
 import SideBar from "./SideBar";
 import LockPopup from "../../components/LockPopup";
+import { ArrowFatLineRight } from "phosphor-react";
 
 const isAuthenticated = true;
 
@@ -32,16 +33,29 @@ const DashboardLayout = () => {
           <Outlet />
         </>
       ) : (
-        <Box
-          sx={{
-            flex: 1,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <Typography variant="h4">App is Locked</Typography>
-        </Box>
+        <>
+          <Stack sx={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+          <Box
+            sx={{
+              flex: 1,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Typography variant="h3">App is Locked</Typography>
+          </Box>
+          <Typography 
+          sx={{display:"flex"}}
+          variant="h6">
+            <ArrowFatLineRight /> "Use 1234 to unlock"
+          </Typography>
+          </Stack>
+        </>
       )}
     </Stack>
   );
