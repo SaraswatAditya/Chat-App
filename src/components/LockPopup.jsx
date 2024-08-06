@@ -4,17 +4,28 @@ import { useTheme } from "@emotion/react";
 
 const LockPopup = ({ onUnlock }) => {
   const theme = useTheme();
-  const handleLock = () => {
-    localStorage.setItem("appLocked", "true");
-    // onClose();
-    window.location.reload();
+  const [inputCode, setInputCode] = useState("");
+
+  const defaultCode = "1234"; // Default code
+
+  const handleNumberClick = (num) => {
+    if (inputCode.length < 4) {
+      setInputCode(inputCode + num);
+    }
   };
 
   const handleUnlock = () => {
-    localStorage.removeItem("appLocked");
-    onUnlock();
-    // onClose();
-    window.location.reload();
+    if (inputCode === defaultCode) {
+      localStorage.removeItem("appLocked");
+      onUnlock();
+      window.location.reload();
+    } else {
+      alert("Incorrect Code");
+    }
+  };
+
+  const handleClear = () => {
+    setInputCode("");
   };
 
   return (
@@ -46,30 +57,48 @@ const LockPopup = ({ onUnlock }) => {
         }}
       >
         <Typography variant="h6" className="p-4">
-          App is Locked
+          Enter PIN to Unlock
         </Typography>
         <Stack direction="column" spacing={1}>
           <Stack direction="row" spacing={1} justifyContent="center">
             {[1, 2, 3].map((num) => (
-              <Button key={num}>{num}</Button>
+              <Button
+                key={num}
+                onClick={() => handleNumberClick(num.toString())}
+              >
+                {num}
+              </Button>
             ))}
           </Stack>
           <Stack direction="row" spacing={1} justifyContent="center">
             {[4, 5, 6].map((num) => (
-              <Button key={num}>{num}</Button>
+              <Button
+                key={num}
+                onClick={() => handleNumberClick(num.toString())}
+              >
+                {num}
+              </Button>
             ))}
           </Stack>
           <Stack direction="row" spacing={1} justifyContent="center">
             {[7, 8, 9].map((num) => (
-              <Button key={num}>{num}</Button>
+              <Button
+                key={num}
+                onClick={() => handleNumberClick(num.toString())}
+              >
+                {num}
+              </Button>
             ))}
           </Stack>
           <Stack direction="row" spacing={1} justifyContent="center">
-            <Button>*</Button>
-            <Button>0</Button>
+            <Button onClick={handleClear}>*</Button>
+            <Button onClick={() => handleNumberClick("0")}>0</Button>
             <Button>#</Button>
           </Stack>
         </Stack>
+        <Typography variant="h6" className="p-4">
+          {inputCode}
+        </Typography>
         <Stack direction="row" spacing={1} mt={2} justifyContent="center">
           <Button
             sx={{
@@ -83,9 +112,9 @@ const LockPopup = ({ onUnlock }) => {
             sx={{
               color: theme.palette.mode === "light" ? "#080707" : "#F0F4FA",
             }}
-            onClick={handleLock}
+            onClick={handleClear}
           >
-            Kept Lock
+            Clear
           </Button>
         </Stack>
       </Box>

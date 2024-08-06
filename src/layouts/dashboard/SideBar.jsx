@@ -10,7 +10,7 @@ import {
   Fade,
   MenuItem,
 } from "@mui/material";
-import { Gear, Lock, LockOpen } from "phosphor-react";
+import { Gear, Lock, LockKeyOpen, LockOpen } from "phosphor-react";
 import { faker } from "@faker-js/faker";
 import useSettings from "../../hooks/useSettings";
 import AntSwitch from "../../components/AntSwitch";
@@ -225,7 +225,7 @@ const SideBar = () => {
             </Box>
           </Menu>
           <IconButton onClick={handleLock}>
-            <Lock />
+            <LockKeyOpen />
           </IconButton>
         </Stack>
       </Stack>
